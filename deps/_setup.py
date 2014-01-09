@@ -24,6 +24,5 @@ setup(
     install_requires=[
         'websocket-client==0.12.0',
         'raspberry-pi-lcd==1.1.1',
-        'smbus-cffi==0.2',
     ]
 )
