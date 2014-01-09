@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import websocket, thread, time, json
-from Adafruit_CharLCDPlate import Adafruit_CharLCDPlate
+from lcd import Adafruit_CharLCDPlate
 
 
 
