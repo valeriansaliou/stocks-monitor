@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import websocket, thread, time, json
+from Adafruit_CharLCDPlate import Adafruit_CharLCDPlate
+
 
 
 class Colors(object):
@@ -37,9 +39,12 @@ class Socket(object):
     Socket operations
     """
 
-    def __init__(self, currency='USD'):
+    def __init__(self, currency='USD', lcd=None):
         self.__last_value = 0
         self.__currency = currency
+        self.__lcd = lcd
+
+        self.__lcd.clear()
 
         self.ws = websocket.WebSocketApp('wss://websocket.mtgox.com:443/mtgox?Currency={currency}'.format(currency=self.__currency),
                                           on_message = self.on_message,
@@ -59,6 +64,8 @@ class Socket(object):
                 if value >= 0 and value != self.__last_value:
                     self.__last_value = value
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
+                    self.__lcd.message(self.__last_value)
+
 
     def on_error(self, ws, error):
         print error
@@ -73,5 +80,5 @@ class Socket(object):
 if __name__ == '__main__':
     # Debug
     websocket.enableTrace(True)
-
-    Socket('USD')
+    lcd = Adafruit_CharLCDPlate()
+    Socket('USD',lcd)
