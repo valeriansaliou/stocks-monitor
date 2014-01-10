@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import websocket, thread, time, json
-from lcd import Adafruit_CharLCDPlate
+from Adafruit_CharLCD import Adafruit_CharLCD
 
 
 
@@ -80,5 +80,5 @@ class Socket(object):
 if __name__ == '__main__':
     # Debug
     websocket.enableTrace(True)
-    lcd = Adafruit_CharLCDPlate()
+    lcd = Adafruit_CharLCD()
     Socket('USD',lcd)
