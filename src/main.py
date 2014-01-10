@@ -56,6 +56,8 @@ class Socket(object):
         self.__currency = currency
         self.__lcd = lcd
         self.__currency_value = 'BTC'
+        self.__status_checkpoint = None
+        self.__status_breakpoint = 1
         self.__initializing = False
 
         #Initialisation LED
@@ -127,10 +129,15 @@ class Socket(object):
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
 
                     self.__lcd.clear()
-                    self.__lcd.message("1 %s = \n" % (self.__currency_value))
+                    self.__lcd.message('1 %s = \n' % (self.__currency_value))
                     self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
 
-                    on_pin(pin_7, 1)
+                    self.on_pin(pin_7, 1)
+
+                    
+
+                    self.check_breakpoint()
+
                     
 		    
     def on_pin(self,pin,value):
@@ -156,6 +163,26 @@ class Socket(object):
             self.__lcd.message('[!] %s %s' % (self.__last_value, self.__currency))
 
         self.__initializing = False
+
+
+    def check_breakpoint(self):
+        if self.__status_checkpoint is None:
+            self.__status_checkpoint = self.__last_value
+        else:
+            # Process variation
+            trigger_variation = 0.01 * float(self.__status_breakpoint) * self.__status_checkpoint
+            current_variation = self.__last_value - self.__status_checkpoint
+
+            # There was a significant variation, trigger!
+            if abs(current_variation) >= trigger_variation:
+                self.__status_checkpoint = self.__last_value
+
+                if current_variation < 0:
+                    # Red LED
+                    pass
+                else:
+                    # Green LED
+                    pass
 
 
 if __name__ == '__main__':
