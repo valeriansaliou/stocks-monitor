@@ -54,7 +54,7 @@ class Socket(object):
         self.__lcd = lcd
         self.__currency_value = 'BTC'
         self.__status_checkpoint = None
-        self.__status_breakpoint = 5
+        self.__status_breakpoint = 1
         self.__initializing = False
 
         #Initialisation LED
