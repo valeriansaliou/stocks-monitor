@@ -29,7 +29,7 @@ class Colors(object):
         _class.OKGREEN = ''
         _class.OKYELLOW = ''
         _class.WARNING = ''
-        _class.FAIL = ''lcd.begin(16,1)
+        _class.FAIL = ''
         _class.ENDC = ''
 
 
@@ -65,8 +65,10 @@ class Socket(object):
                 if value >= 0 and value != self.__last_value:
                     self.__last_value = value
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
-                    self.__lcd.message(self.__last_value)
-
+                    self.__lcd.clear()
+		    self.__lcd.message(str(self.__last_value))
+                    self.__lcd.message('Prout')
+		    time.sleep(2)
 
     def on_error(self, ws, error):
         print error
@@ -82,4 +84,5 @@ if __name__ == '__main__':
     # Debug
     websocket.enableTrace(True)
     lcd = Adafruit_CharLCD()
+    lcd.begin(16,1)
     Socket('USD',lcd)
