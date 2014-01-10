@@ -31,8 +31,6 @@ class Colors(object):
     FAIL = '\033[91m'
     ENDC = '\033[0m'
 
-    
-
 
     @classmethod
     def disable(_class):
@@ -53,8 +51,6 @@ class Socket(object):
     """
     Socket operations
     """
-          
-
     def __init__(self, currency='USD', lcd=None):
         self.__last_value = 0
         self.__currency = currency
@@ -138,7 +134,8 @@ class Socket(object):
                     self.check_breakpoint()
 
 		    
-    def on_pin(self,pin,value):
+    def on_pin(self, pin, value):
+        print 'Set GPIO pin %s to %s' % (pin, value)
         GPIO.output(pin,value)
 
 
@@ -173,16 +170,22 @@ class Socket(object):
             trigger_variation = 0.00001 * float(self.__status_breakpoint) * float(self.__status_checkpoint)
             current_variation = float(self.__last_value) - float(self.__status_checkpoint)
 
+            print 'Variation: %s' % current_variation
+
             # There was a significant variation, trigger!
             if abs(current_variation) >= trigger_variation:
                 self.__status_checkpoint = self.__last_value
 
                 if current_variation < 0:
                     # Red LED
+                    print Colors.FAIL + ('Red LED on') + Colors.ENDC
+
                     self.on_pin(PIN_LED_RED,1)
                     self.on_pin(PIN_LED_GREEN,0)
                 else:
                     # Green LED
+                    print Colors.OKGREEN + ('Green LED on') + Colors.ENDC
+
                     self.on_pin(PIN_LED_GREEN,1)
                     self.on_pin(PIN_LED_RED,0)
 
