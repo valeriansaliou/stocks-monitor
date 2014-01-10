@@ -49,6 +49,7 @@ class Socket(object):
         self.__last_value = 0
         self.__currency = currency
         self.__lcd = lcd
+        self.__name = 'BTCUSD' # Par défaut
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
@@ -99,7 +100,8 @@ class Socket(object):
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
 
                     self.__lcd.clear()
-                    self.__lcd.message(str(self.__last_value))
+                    self.__lcd.message("%s Value : \n" % (self.__name))
+                    self.__lcd.message(str(self.__last_value) + '\n')
                     
 		    
 
