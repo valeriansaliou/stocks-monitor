@@ -171,7 +171,7 @@ class Socket(object):
             self.__status_checkpoint = self.__last_value
         else:
             # Process variation
-            trigger_variation = 0.01 * float(self.__status_breakpoint) * self.__status_checkpoint
+            trigger_variation = 0.01 * float(self.__status_breakpoint) * float(self.__status_checkpoint)
             current_variation = self.__last_value - self.__status_checkpoint
 
             # There was a significant variation, trigger!
