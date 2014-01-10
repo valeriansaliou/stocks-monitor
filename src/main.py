@@ -15,6 +15,8 @@ try:
 except ImportError:
     import Mock_GPIO as GPIO
 
+PIN_LED_GREEN = 7       
+PIN_LED_RED = 8 
 
 class Colors(object):
     """
@@ -51,8 +53,7 @@ class Socket(object):
     """
     Socket operations
     """
-    pin_led_green = 7       # Green
-    pin_led_red = 8       
+          
 
     def __init__(self, currency='USD', lcd=None):
         self.__last_value = 0
@@ -65,8 +66,8 @@ class Socket(object):
 
         #Initialisation LED
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(pin_led_red, GPIO.OUT)
-        GPIO.setup(pin_led_green, GPIO.OUT)
+        GPIO.setup(PIN_LED_RED, GPIO.OUT)
+        GPIO.setup(PIN_LED_GREEN, GPIO.OUT)
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
@@ -94,7 +95,7 @@ class Socket(object):
                 self.__lcd.clear()
                 self.__lcd.message("1 %s = \n" % (self.__currency_value))
                 self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
-                on_pin(pin_led_red, 1)
+                on_pin(PIN_LED_RED, 1)
         self.open_socket()
 
         
@@ -179,12 +180,12 @@ class Socket(object):
 
                 if current_variation < 0:
                     # Red LED
-                    on_pin(pin_led_red,1)
-                    on_pin(pin_led_green,0)
+                    on_pin(PIN_LED_RED,1)
+                    on_pin(PIN_LED_GREEN,0)
                 else:
                     # Green LED
-                    on_pin(pin_led_green,1)
-                    on_pin(pin_led_red,0)
+                    on_pin(PIN_LED_GREEN,1)
+                    on_pin(PIN_LED_RED,0)
 
 
 if __name__ == '__main__':
