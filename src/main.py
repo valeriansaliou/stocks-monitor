@@ -8,8 +8,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
 import websocket, thread, time, json
 from Adafruit_CharLCD import Adafruit_CharLCD
 from MtGox import MtGox
-
-
+# GPIO 
+try:
+                import RPi.GPIO as GPIO
+except ImportError:
+                import Mock_GPIO as GPIO
 
 class Colors(object):
     """
@@ -75,7 +78,7 @@ class Socket(object):
                 self.__lcd.clear()
                 self.__lcd.message("1 %s = \n" % (self.__currency_value))
                 self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
-
+                GPIO.output(8, 1)
         self.open_socket()
 
         
