@@ -95,7 +95,6 @@ class Socket(object):
                 self.__lcd.clear()
                 self.__lcd.message("1 %s = \n" % (self.__currency_value))
                 self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
-                self.on_pin(PIN_LED_RED, 1)
         self.open_socket()
 
         
@@ -172,7 +171,7 @@ class Socket(object):
         else:
             # Process variation
             trigger_variation = 0.01 * float(self.__status_breakpoint) * float(self.__status_checkpoint)
-            current_variation = self.__last_value - self.__status_checkpoint
+            current_variation = float(self.__last_value) - float(self.__status_checkpoint)
 
             # There was a significant variation, trigger!
             if abs(current_variation) >= trigger_variation:
@@ -180,12 +179,12 @@ class Socket(object):
 
                 if current_variation < 0:
                     # Red LED
-                    on_pin(PIN_LED_RED,1)
-                    on_pin(PIN_LED_GREEN,0)
+                    self.on_pin(PIN_LED_RED,1)
+                    self.on_pin(PIN_LED_GREEN,0)
                 else:
                     # Green LED
-                    on_pin(PIN_LED_GREEN,1)
-                    on_pin(PIN_LED_RED,0)
+                    self.on_pin(PIN_LED_GREEN,1)
+                    self.on_pin(PIN_LED_RED,0)
 
 
 if __name__ == '__main__':
