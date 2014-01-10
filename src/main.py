@@ -96,6 +96,8 @@ class Socket(object):
 
 
     def reopen_socket(self):
+        print Colors.HEADER + 'Re-opening socket...' + Colors.ENDC
+
         self.__lcd.clear()
         self.__lcd.message('Lost connection')
         self.__lcd.message('Reconnecting...')
