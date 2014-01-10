@@ -57,6 +57,11 @@ class Socket(object):
         self.__status_breakpoint = 5
         self.__initializing = False
 
+        #Initialisation LED
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(8, GPIO.OUT)
+        GPIO.setup(7, GPIO.OUT)
+
         self.__lcd.begin(16,1)
         self.__lcd.clear()
 
