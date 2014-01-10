@@ -27,8 +27,7 @@ class Colors(object):
     FAIL = '\033[91m'
     ENDC = '\033[0m'
 
-    pin_7 = 7
-    pin_8 = 8
+    
 
 
     @classmethod
@@ -50,7 +49,8 @@ class Socket(object):
     """
     Socket operations
     """
-
+    pin_7 = 7
+    pin_8 = 8
     def __init__(self, currency='USD', lcd=None):
         self.__last_value = 0
         self.__currency = currency
