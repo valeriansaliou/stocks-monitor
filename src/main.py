@@ -73,7 +73,7 @@ class Socket(object):
                 print Colors.OKGREEN + ('Got initial value: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
 
                 self.__lcd.clear()
-                self.__lcd.message("%s Value : \n" % (self.__currency_value))
+                self.__lcd.message("1 %s = \n" % (self.__currency_value))
                 self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
 
         self.open_socket()
@@ -101,8 +101,10 @@ class Socket(object):
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
 
                     self.__lcd.clear()
-                    self.__lcd.message("%s Value : \n" % (self.__currency_value))
+                    self.__lcd.message("1 %s = \n" % (self.__currency_value))
                     self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
+
+                    GPIO.output(7, 1)
                     
 		    
 
