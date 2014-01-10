@@ -65,7 +65,7 @@ class Socket(object):
                 if value >= 0 and value != self.__last_value:
                     self.__last_value = value
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
-                    self.__lcd.message(self.__last_value)
+                    self.__lcd.message(str(self.__last_value))
                     sleep(2)
 
 
