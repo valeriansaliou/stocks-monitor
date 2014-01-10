@@ -95,7 +95,7 @@ class Socket(object):
                 self.__lcd.clear()
                 self.__lcd.message("1 %s = \n" % (self.__currency_value))
                 self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
-                on_pin(PIN_LED_RED, 1)
+                self.on_pin(PIN_LED_RED, 1)
         self.open_socket()
 
         
