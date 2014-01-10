@@ -56,9 +56,9 @@ class Socket(object):
         self.__initializing = False
 
         #Initialisation LED
-        self.GPIO.setmode(GPIO.BCM)
-        self.GPIO.setup(8, GPIO.OUT)
-        self.GPIO.setup(7, GPIO.OUT)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(8, GPIO.OUT)
+        GPIO.setup(7, GPIO.OUT)
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
