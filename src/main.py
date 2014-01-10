@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+# Add lib to PYTHON_PATH
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
+
+# Imports
 import websocket, thread, time, json
 from Adafruit_CharLCD import Adafruit_CharLCD
 
