@@ -29,7 +29,7 @@ class Colors(object):
         _class.OKGREEN = ''
         _class.OKYELLOW = ''
         _class.WARNING = ''
-        _class.FAIL = ''
+        _class.FAIL = ''lcd.begin(16,1)
         _class.ENDC = ''
 
 
@@ -44,6 +44,7 @@ class Socket(object):
         self.__currency = currency
         self.__lcd = lcd
 
+        self.__lcd.begin(16,1)
         self.__lcd.clear()
 
         self.ws = websocket.WebSocketApp('wss://websocket.mtgox.com:443/mtgox?Currency={currency}'.format(currency=self.__currency),
