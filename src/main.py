@@ -91,6 +91,8 @@ class Socket(object):
                 self.__lcd.clear()
                 self.__lcd.message("1 %s = \n" % (self.__currency_value))
                 self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
+
+        self.check_breakpoint()
         self.open_socket()
 
         
