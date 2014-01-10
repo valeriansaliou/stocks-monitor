@@ -68,6 +68,9 @@ class Socket(object):
         self.__lcd.begin(16,1)
         self.__lcd.clear()
 
+        self.write_pin(PIN_LED_RED,0)
+        self.write_pin(PIN_LED_GREEN,0)
+
         self.initialize()
 
 
@@ -118,6 +121,11 @@ class Socket(object):
         self.open_socket()
 
 
+    def write_pin(self, pin, value):
+        print 'Set GPIO pin %s to %s' % (pin, value)
+        GPIO.output(pin,value)
+
+
     def on_message(self, ws, message):
         if message:
             msg = json.loads(message)
@@ -134,11 +142,6 @@ class Socket(object):
                     self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
 
                     self.check_breakpoint()
-
-		    
-    def on_pin(self, pin, value):
-        print 'Set GPIO pin %s to %s' % (pin, value)
-        GPIO.output(pin,value)
 
 
     def on_error(self, ws, error):
@@ -182,14 +185,14 @@ class Socket(object):
                     # Red LED
                     print Colors.FAIL + ('Red LED on') + Colors.ENDC
 
-                    self.on_pin(PIN_LED_RED,1)
-                    self.on_pin(PIN_LED_GREEN,0)
+                    self.write_pin(PIN_LED_RED,1)
+                    self.write_pin(PIN_LED_GREEN,0)
                 else:
                     # Green LED
                     print Colors.OKGREEN + ('Green LED on') + Colors.ENDC
 
-                    self.on_pin(PIN_LED_GREEN,1)
-                    self.on_pin(PIN_LED_RED,0)
+                    self.write_pin(PIN_LED_GREEN,1)
+                    self.write_pin(PIN_LED_RED,0)
 
 
 if __name__ == '__main__':
