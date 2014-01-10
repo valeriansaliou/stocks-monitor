@@ -29,7 +29,7 @@ class Colors(object):
         _class.OKGREEN = ''
         _class.OKYELLOW = ''
         _class.WARNING = ''
-        _class.FAIL = ''lcd.begin(16,1)
+        _class.FAIL = ''
         _class.ENDC = ''
 
 
@@ -46,7 +46,7 @@ class Socket(object):
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
-
+        self.__lcd.message('Salut')
         self.ws = websocket.WebSocketApp('wss://websocket.mtgox.com:443/mtgox?Currency={currency}'.format(currency=self.__currency),
                                           on_message = self.on_message,
                                           on_error = self.on_error,
@@ -66,6 +66,7 @@ class Socket(object):
                     self.__last_value = value
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
                     self.__lcd.message(self.__last_value)
+                    sleep(2)
 
 
     def on_error(self, ws, error):
