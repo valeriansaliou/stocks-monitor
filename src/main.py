@@ -27,6 +27,9 @@ class Colors(object):
     FAIL = '\033[91m'
     ENDC = '\033[0m'
 
+    pin_7 = 7
+    pin_8 = 8
+
 
     @classmethod
     def disable(_class):
@@ -57,8 +60,8 @@ class Socket(object):
 
         #Initialisation LED
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(8, GPIO.OUT)
-        GPIO.setup(7, GPIO.OUT)
+        GPIO.setup(pin_8, GPIO.OUT)
+        GPIO.setup(pin_7, GPIO.OUT)
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
@@ -72,7 +75,7 @@ class Socket(object):
         print Colors.OKYELLOW + 'Initializing...' + Colors.ENDC
 
         self.__lcd.clear()
-        self.__lcd.message('Initializing...')
+        self.__lcd.message('Initializing... \n')
 
         data = MtGox().request('/BTCUSD/money/ticker_fast')
 
@@ -86,7 +89,7 @@ class Socket(object):
                 self.__lcd.clear()
                 self.__lcd.message("1 %s = \n" % (self.__currency_value))
                 self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
-                GPIO.output(8, 1)
+                on_pin(pin_8, 1)
         self.open_socket()
 
         
@@ -104,8 +107,8 @@ class Socket(object):
         print Colors.HEADER + 'Re-opening socket...' + Colors.ENDC
 
         self.__lcd.clear()
-        self.__lcd.message('Lost connection')
-        self.__lcd.message('Reconnecting...')
+        self.__lcd.message('Lost connection \n')
+        self.__lcd.message('Reconnecting... \n')
 
         # After a little while...
         time.sleep(5)
@@ -127,10 +130,11 @@ class Socket(object):
                     self.__lcd.message("1 %s = \n" % (self.__currency_value))
                     self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
 
-                    GPIO.output(7, 1)
+                    on_pin(pin_7, 1)
                     
 		    
-
+    def on_pin(self,pin,value):
+        GPIO.output(pin,value)
     def on_error(self, ws, error):
         print Colors.FAIL + ('Error: %s' % error) + Colors.ENDC
 
@@ -148,7 +152,7 @@ class Socket(object):
 
         if self.__initializing is False:
             self.__lcd.clear()
-            self.__lcd.message('Reconnected, syncing...')
+            self.__lcd.message('Reconnected, \n syncing...')
             self.__lcd.message('[!] %s %s' % (self.__last_value, self.__currency))
 
         self.__initializing = False
