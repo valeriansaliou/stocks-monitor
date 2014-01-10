@@ -49,7 +49,7 @@ class Socket(object):
         self.__last_value = 0
         self.__currency = currency
         self.__lcd = lcd
-        self.__name = 'BTCUSD' # Par défaut
+        self.__name = 'BTCUSD' # Par defaut
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
