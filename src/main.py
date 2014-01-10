@@ -69,7 +69,7 @@ class Socket(object):
         self.__lcd.clear()
 
         self.write_pin(PIN_LED_RED,0)
-        self.write_pin(PIN_LED_GREEN,0)
+        self.write_pin(PIN_LED_GREEN,1)
 
         self.initialize()
 
