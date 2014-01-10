@@ -51,8 +51,9 @@ class Socket(object):
     """
     Socket operations
     """
-    pin_7 = 7
-    pin_8 = 8
+    pin_led_green = 7       # Green
+    pin_led_red = 8       
+
     def __init__(self, currency='USD', lcd=None):
         self.__last_value = 0
         self.__currency = currency
@@ -64,8 +65,8 @@ class Socket(object):
 
         #Initialisation LED
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(pin_8, GPIO.OUT)
-        GPIO.setup(pin_7, GPIO.OUT)
+        GPIO.setup(pin_led_red, GPIO.OUT)
+        GPIO.setup(pin_led_green, GPIO.OUT)
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
@@ -93,7 +94,7 @@ class Socket(object):
                 self.__lcd.clear()
                 self.__lcd.message("1 %s = \n" % (self.__currency_value))
                 self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency))
-                on_pin(pin_8, 1)
+                on_pin(pin_led_red, 1)
         self.open_socket()
 
         
@@ -178,10 +179,12 @@ class Socket(object):
 
                 if current_variation < 0:
                     # Red LED
-                    pass
+                    on_pin(pin_led_red,1)
+                    on_pin(pin_led_green,0)
                 else:
                     # Green LED
-                    pass
+                    on_pin(pin_led_green,1)
+                    on_pin(pin_led_red,0)
 
 
 if __name__ == '__main__':
