@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Add lib to PYTHON_PATH
-import sys, os
+import sys, os, time
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
 
 # Imports
@@ -50,6 +50,7 @@ class Socket(object):
         self.__currency = currency
         self.__lcd = lcd
         self.__currency_value = 'BTC'
+        self.__initializing = False
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
@@ -58,6 +59,8 @@ class Socket(object):
 
 
     def initialize(self):
+        self.__initializing = True
+
         print Colors.OKYELLOW + 'Initializing...' + Colors.ENDC
 
         self.__lcd.clear()
@@ -89,6 +92,16 @@ class Socket(object):
         self.ws.run_forever()
 
 
+    def reopen_socket(self):
+        self.__lcd.clear()
+        self.__lcd.message('Lost connection')
+        self.__lcd.message('Reconnecting...')
+
+        # After a little while...
+        time.sleep(5)
+        self.open_socket()
+
+
     def on_message(self, ws, message):
         if message:
             msg = json.loads(message)
@@ -109,15 +122,24 @@ class Socket(object):
     def on_error(self, ws, error):
         print Colors.FAIL + ('Error: %s' % error) + Colors.ENDC
 
-        # TODO: re-open on disconnect!
+        self.reopen_socket()
 
 
     def on_close(self, ws):
         print Colors.OKYELLOW + 'Socket closed' + Colors.ENDC
 
+        self.reopen_socket()
+
 
     def on_open(self, ws):
         print Colors.OKGREEN + 'Socket opened' + Colors.ENDC
+
+        if self.__initializing is False:
+            self.__lcd.clear()
+            self.__lcd.message('Reconnected, syncing...')
+            self.__lcd.message('[!] %s %s' % (self.__last_value, self.__currency))
+
+        self.__initializing = False
 
 
 if __name__ == '__main__':
