@@ -75,7 +75,8 @@ class Socket(object):
                 print Colors.OKGREEN + ('Got initial value: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
 
                 self.__lcd.clear()
-                self.__lcd.message(str(self.__last_value))
+                self.__lcd.message("%s Value : \n" % (self.__currency))
+                self.__lcd.message(str(self.__last_value) + ' %s \n' %(self.__currency_current))
 
         self.open_socket()
 
