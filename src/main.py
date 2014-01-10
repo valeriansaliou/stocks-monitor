@@ -82,10 +82,10 @@ class Socket(object):
         data = MtGox().request('/BTCUSD/money/ticker_fast')
 
         if data:
-            sell_value = data.get('sell', {}).get('value', 0)
+            buy_value = data.get('buy', {}).get('value', 0)
 
-            if sell_value >= 0:
-                self.__last_value = sell_value
+            if buy_value >= 0:
+                self.__last_value = buy_value
                 print Colors.OKGREEN + ('Got initial value: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
 
                 self.__lcd.clear()
