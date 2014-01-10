@@ -46,7 +46,7 @@ class Socket(object):
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
-
+        self.__lcd.message('Salut')
         self.ws = websocket.WebSocketApp('wss://websocket.mtgox.com:443/mtgox?Currency={currency}'.format(currency=self.__currency),
                                           on_message = self.on_message,
                                           on_error = self.on_error,
@@ -65,10 +65,16 @@ class Socket(object):
                 if value >= 0 and value != self.__last_value:
                     self.__last_value = value
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
+<<<<<<< HEAD
                     self.__lcd.clear()
 		    self.__lcd.message(str(self.__last_value))
                     self.__lcd.message('Prout')
 		    time.sleep(2)
+=======
+                    self.__lcd.message(self.__last_value)
+                    sleep(2)
+
+>>>>>>> 3b54aab632bb5a060d72e13a1056b82b675732aa
 
     def on_error(self, ws, error):
         print error
