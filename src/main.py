@@ -65,8 +65,8 @@ class Socket(object):
                 if value >= 0 and value != self.__last_value:
                     self.__last_value = value
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
-                    self.__lcd.message(str(self.__last_value))
-                    sleep(2)
+                    #self.__lcd.message(str(self.__last_value))
+                    #sleep(2)
 
 
     def on_error(self, ws, error):
@@ -83,4 +83,8 @@ if __name__ == '__main__':
     # Debug
     websocket.enableTrace(True)
     lcd = Adafruit_CharLCD()
+    lcd.begin(16,1)
+    lcd.clear()
+    lcd.message('Salut')
+    sleep(100)
     Socket('USD',lcd)
