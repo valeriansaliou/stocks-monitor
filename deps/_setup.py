@@ -22,6 +22,7 @@ setup(
     author_email='valerian@valeriansaliou.name',
 
     install_requires=[
+        'requests==2.2.0',
         'websocket-client==0.12.0',
         'raspberry-pi-lcd==1.1.1',
     ]

@@ -7,6 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
 # Imports
 import websocket, thread, time, json
 from Adafruit_CharLCD import Adafruit_CharLCD
+from MtGox import MtGox
 
 
 
@@ -51,7 +52,32 @@ class Socket(object):
 
         self.__lcd.begin(16,1)
         self.__lcd.clear()
-        self.__lcd.message('Salut')
+
+        self.initialize()
+
+
+    def initialize(self):
+        print Colors.OKYELLOW + 'Initializing...' + Colors.ENDC
+
+        self.__lcd.clear()
+        self.__lcd.message('Initializing...')
+
+        data = MtGox().request('/BTCUSD/money/ticker_fast')
+
+        if data:
+            sell_value = data.get('sell', {}).get('value', 0)
+
+            if sell_value >= 0:
+                self.__last_value = sell_value
+                print Colors.OKGREEN + ('Got initial value: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
+
+                self.__lcd.clear()
+                self.__lcd.message(str(self.__last_value))
+
+        self.open_socket()
+
+        
+    def open_socket(self):
         self.ws = websocket.WebSocketApp('wss://websocket.mtgox.com:443/mtgox?Currency={currency}'.format(currency=self.__currency),
                                           on_message = self.on_message,
                                           on_error = self.on_error,
@@ -59,6 +85,7 @@ class Socket(object):
                                           on_open = self.on_open
                                         )
         self.ws.run_forever()
+
 
     def on_message(self, ws, message):
         if message:
@@ -72,15 +99,19 @@ class Socket(object):
                     print Colors.OKBLUE + ('Value changed to: %s %s' % (self.__last_value, self.__currency)) + Colors.ENDC
 
                     self.__lcd.clear()
-		    self.__lcd.message(str(self.__last_value))
+                    self.__lcd.message(str(self.__last_value))
                     
 		    
 
     def on_error(self, ws, error):
-        print error
+        print Colors.FAIL + ('Error: %s' % error) + Colors.ENDC
+
+        # TODO: re-open on disconnect!
+
 
     def on_close(self, ws):
-        print '### closed ###'
+        print Colors.OKYELLOW + 'Socket closed' + Colors.ENDC
+
 
     def on_open(self, ws):
         print Colors.OKGREEN + 'Socket opened' + Colors.ENDC
@@ -89,6 +120,8 @@ class Socket(object):
 if __name__ == '__main__':
     # Debug
     websocket.enableTrace(True)
-    lcd = Adafruit_CharLCD()
-    lcd.begin(16,1)
-    Socket('USD',lcd)
+
+    Socket(
+        'USD',
+        Adafruit_CharLCD()
+    )
