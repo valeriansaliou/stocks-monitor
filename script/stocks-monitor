@@ -20,13 +20,24 @@ PID_FILE=$BASEDIR/tmp/pids/service.pid
 
 test -e $RUN || exit 0
 
+start_force()
+{
+    $RUN 1>/dev/null 2>&1 &
+    echo $! > $PID_FILE
+}
+
 start()
 {
     # Only start if not yet started
-    kill - 0 $PID_FILE
-    if [[ $? -ne 0 ]]; then
-        $RUN 1>/dev/null 2>&1 &
-        echo $! > $PID_FILE
+    PID=$(cat $PID_FILE)
+
+    if [[ ! -z $PID ]]; then
+        kill -0 $PID
+        if [[ $? -ne 0 ]]; then
+            start_force
+        fi
+    else
+        start_force
     fi
 }
 
