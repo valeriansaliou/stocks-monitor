@@ -29,6 +29,7 @@ start()
 stop()
 {
     kill -9 $(cat $PID_FILE)
+    rm $PID_FILE
 }
 
 case "$1" in
