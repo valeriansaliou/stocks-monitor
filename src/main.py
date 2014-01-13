@@ -65,11 +65,11 @@ class Stocks(object):
         GPIO.setup(PIN_LED_RED, GPIO.OUT)
         GPIO.setup(PIN_LED_GREEN, GPIO.OUT)
 
-        self.__lcd.begin(16,1)
+        self.__lcd.begin(16, 1)
         self.__lcd.clear()
 
-        self.write_pin(PIN_LED_RED,0)
-        self.write_pin(PIN_LED_GREEN,1)
+        self.write_pin(PIN_LED_RED, 0)
+        self.write_pin(PIN_LED_GREEN, 0)
 
         self.initialize()
 
@@ -185,14 +185,14 @@ class Stocks(object):
                     # Red LED
                     print Colors.FAIL + ('Red LED on') + Colors.ENDC
 
-                    self.write_pin(PIN_LED_RED,1)
-                    self.write_pin(PIN_LED_GREEN,0)
+                    self.write_pin(PIN_LED_RED, 1)
+                    self.write_pin(PIN_LED_GREEN, 0)
                 else:
                     # Green LED
                     print Colors.OKGREEN + ('Green LED on') + Colors.ENDC
 
-                    self.write_pin(PIN_LED_GREEN,1)
-                    self.write_pin(PIN_LED_RED,0)
+                    self.write_pin(PIN_LED_GREEN, 1)
+                    self.write_pin(PIN_LED_RED, 0)
 
 
 if __name__ == '__main__':
