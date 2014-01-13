@@ -19,12 +19,12 @@ test -e $RUN || exit 0
 
 start()
 {
-    $RUN >> /dev/null
+    $RUN 2>&1 >> /dev/null
 }
 
 stop()
 {
-    killall $RUN >> /dev/null
+    killall $RUN 2>&1 >> /dev/null
 }
 
 case "$1" in
