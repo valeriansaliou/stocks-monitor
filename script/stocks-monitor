@@ -32,9 +32,10 @@ start()
     PID=$(cat $PID_FILE)
 
     if [ ! -z $PID ]; then
-        kill -0 $PID
-        if [ $? -ne 0 ]; then
+        if [ ! kill -0 $PID > /dev/null 2>&1 ]; then
             start_force
+        else
+            echo -n "Already running"
         fi
     else
         start_force
