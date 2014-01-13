@@ -13,7 +13,7 @@
 # Description:       Starts stocks-monitor, mostly Django-powered stocks-monitor.
 ### END INIT INFO
 
-BASEDIR=$(dirname $(readlink -f "$0"))../
+BASEDIR=$(dirname $(readlink -f "$0"))/..
 
 RUN=$BASEDIR/init.sh
 PID_FILE=$BASEDIR/tmp/pids/service.pid
