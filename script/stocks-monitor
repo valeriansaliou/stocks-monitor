@@ -20,24 +20,16 @@ PID_FILE=$BASEDIR/tmp/pids/service.pid
 
 test -e $RUN || exit 0
 
-start_force()
-{
-    $RUN 1>/dev/null 2>&1 &
-    echo $! > $PID_FILE
-}
-
 start()
 {
-    # Only start if not yet started
+    # Stop first if started
     if [ -f $PID_FILE ]; then
-        if [ ! kill -0 $(cat $PID_FILE) > /dev/null 2>&1 ]; then
-            start_force
-        else
-            echo -n "Already running"
-        fi
-    else
-        start_force
+        echo -n "Restarting..."
+        stop
     fi
+
+    $RUN 1>/dev/null 2>&1 &
+    echo $! > $PID_FILE
 }
 
 stop()
