@@ -143,6 +143,8 @@ class Stocks(object):
 
                     self.check_breakpoint()
 
+                    self.play_sound('value-change')
+
 
     def on_error(self, ws, error):
         print Colors.FAIL + ('Error: %s' % error) + Colors.ENDC
@@ -193,6 +195,10 @@ class Stocks(object):
 
                     self.write_pin(PIN_LED_GREEN, 1)
                     self.write_pin(PIN_LED_RED, 0)
+
+
+    def play_sound(self, name):
+        sys.command('aplay ./share/sounds/%s.wav' % name)
 
 
 if __name__ == '__main__':
