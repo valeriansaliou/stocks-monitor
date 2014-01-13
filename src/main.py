@@ -15,8 +15,8 @@ try:
 except ImportError:
     import Mock_GPIO as GPIO
 
-PIN_LED_GREEN = 7       
-PIN_LED_RED = 8 
+PIN_LED_GREEN = 11
+PIN_LED_RED = 9
 
 class Colors(object):
     """
@@ -65,7 +65,7 @@ class Stocks(object):
         GPIO.setup(PIN_LED_RED, GPIO.OUT)
         GPIO.setup(PIN_LED_GREEN, GPIO.OUT)
 
-        self.__lcd.begin(16, 1)
+        self.__lcd.begin(16,1)
         self.__lcd.clear()
 
         self.write_pin(PIN_LED_RED, 0)
