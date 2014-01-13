@@ -31,9 +31,9 @@ start()
     # Only start if not yet started
     PID=$(cat $PID_FILE)
 
-    if [[ ! -z $PID ]]; then
+    if [ ! -z $PID ]; then
         kill -0 $PID
-        if [[ $? -ne 0 ]]; then
+        if [ $? -ne 0 ]; then
             start_force
         fi
     else
