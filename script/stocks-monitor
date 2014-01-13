@@ -22,7 +22,7 @@ test -e $RUN || exit 0
 
 start()
 {
-    $RUN 1>/dev/null 2>&1
+    $RUN 1>/dev/null 2>&1 &
     echo $! > $PID_FILE
 }
 
@@ -34,11 +34,11 @@ stop()
 case "$1" in
     start)
     echo -n "Starting stocks-monitor..."
-    start &
+    start
     ;;
     stop)
     echo -n "Stopping stocks-monitor..."
-    stop &
+    stop
     ;;
     *)
     echo "Usage: $0 {start|stop}" >&2
