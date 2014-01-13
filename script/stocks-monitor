@@ -24,7 +24,7 @@ start()
 
 stop()
 {
-    $RUN >> /dev/null
+    killall $RUN >> /dev/null
 }
 
 case "$1" in
