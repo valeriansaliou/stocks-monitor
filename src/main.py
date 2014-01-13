@@ -172,7 +172,7 @@ class Stocks(object):
             self.__status_checkpoint = self.__last_value
         else:
             # Process variation
-            trigger_variation = 0.01 * float(self.__status_breakpoint) * float(self.__status_checkpoint)
+            trigger_variation = 0.001 * float(self.__status_breakpoint) * float(self.__status_checkpoint)
             current_variation = float(self.__last_value) - float(self.__status_checkpoint)
 
             print 'Variation: %s' % current_variation
