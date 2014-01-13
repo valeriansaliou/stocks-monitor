@@ -2,3 +2,4 @@
 *.pyc
 env/
 tmp/eggs/
+#tmp/pids/
