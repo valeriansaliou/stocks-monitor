@@ -22,8 +22,12 @@ test -e $RUN || exit 0
 
 start()
 {
-    $RUN 1>/dev/null 2>&1 &
-    echo $! > $PID_FILE
+    # Only start if not yet started
+    kill - 0 $PID_FILE
+    if [[ $? -ne 0 ]]; then
+        $RUN 1>/dev/null 2>&1 &
+        echo $! > $PID_FILE
+    fi
 }
 
 stop()
