@@ -29,10 +29,8 @@ start_force()
 start()
 {
     # Only start if not yet started
-    PID=$(cat $PID_FILE)
-
-    if [ ! -z $PID ]; then
-        if [ ! kill -0 $PID > /dev/null 2>&1 ]; then
+    if [ -f $PID_FILE ]; then
+        if [ ! kill -0 $(cat $PID_FILE) > /dev/null 2>&1 ]; then
             start_force
         else
             echo -n "Already running"
