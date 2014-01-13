@@ -47,9 +47,9 @@ class Colors(object):
 
 
 
-class Socket(object):
+class Stocks(object):
     """
-    Socket operations
+    Stocks operations
     """
     def __init__(self, currency='USD', lcd=None):
         self.__last_value = 0
@@ -199,7 +199,7 @@ if __name__ == '__main__':
     # Debug
     websocket.enableTrace(True)
 
-    Socket(
+    Stocks(
         'USD',
         Adafruit_CharLCD()
     )
