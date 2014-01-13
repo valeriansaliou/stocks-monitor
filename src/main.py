@@ -198,7 +198,7 @@ class Stocks(object):
 
 
     def play_sound(self, name):
-        sys.command('aplay ./share/sounds/%s.wav' % name)
+        os.system('aplay ./share/sounds/%s.wav' % name)
 
 
 if __name__ == '__main__':
