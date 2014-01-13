@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+PARENT_DIR=$(dirname $(readlink -f "$0"))
+cd $PARENT_DIR
+
 # Initialize virtual environment
 if [ ! -f "./env/bin/python" ]; then virtualenv -p /usr/bin/python env --system-site-packages; fi
 
