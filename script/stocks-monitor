@@ -22,7 +22,7 @@ test -e $RUN || exit 0
 
 start()
 {
-    $RUN 2>&1 >> /dev/null
+    $RUN 1>/dev/null 2>&1
     echo $! > $PID_FILE
 }
 
