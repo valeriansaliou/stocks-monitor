@@ -10,7 +10,7 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Starts stocks-monitor
-# Description:       Starts stocks-monitor, mostly Django-powered stocks-monitor.
+# Description:       Starts stocks-monitor
 ### END INIT INFO
 
 BASEDIR=$(dirname $(readlink -f "$0"))/..
