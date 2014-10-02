@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 """
 Stocks monitor setup script
@@ -16,7 +16,7 @@ setup(
     name='stocks-monitor',
     version='0.1.0',
     description='Live Stocks Monitor Screen',
-    url='https://code.frenchtouch.pro/enib/stocks-monitor',
+    url='https://code.hakuma.holdings/enib/stocks-monitor',
 
     author=u'Valérian Saliou',
     author_email='valerian@valeriansaliou.name',
